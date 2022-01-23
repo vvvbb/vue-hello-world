@@ -1,4 +1,4 @@
-import { Loader } from "@googlemaps/js-api-loader";
+/* import { Loader } from "@googlemaps/js-api-loader";
 
 const loader = new Loader({
     apiKey: "AIzaSyAzcBk5vzNjC0yqQR3x52vpHRdlhFdjSHQ",
@@ -6,7 +6,7 @@ const loader = new Loader({
     libraries: ["places"],
 });
 
-const mapOptions = {
+let mapOptions = {
     center: {
         lat: 48.8534,
         lng: 2.3488,
@@ -25,4 +25,4 @@ loader
     .catch((e) => {
         // do something
         console.log("e : ", e);
-    });
+    }); */

@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     changePos() {
-      this.$emit("changePos", this.id, this.sliderVal);
+      this.$emit("changePos", this.id, parseInt(this.sliderVal));
     },
   },
 };
