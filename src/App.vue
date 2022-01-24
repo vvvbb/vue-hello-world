@@ -3,18 +3,21 @@
     <img alt="Vue logo" src="./assets/logo.png" hidden />
     <GoogleMap />
     <HelloWorld msg="Welcome to Your Vue.js App" hidden />
+    <SectionText />
   </div>
 </template>
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
 import GoogleMap from "./components/GoogleMap.vue";
+import SectionText from "./components/SectionText.vue";
 
 export default {
   name: "App",
   components: {
     HelloWorld,
     GoogleMap,
+    SectionText,
   },
 };
 </script>

@@ -22,6 +22,7 @@
             :id="idlongitude"
             @changePos="changeFoo"
           />
+          <ButtonSpeed :id="speed" @changeSpeed="changeSpeed" />
         </div>
       </div>
     </div>
@@ -34,9 +35,10 @@
 <script>
 import { Loader } from "@googlemaps/js-api-loader";
 import ButtonZoom from "./ButtonZoom.vue";
+import ButtonSpeed from "./ButtonSpeed.vue";
 
 let loader = new Loader({
-  apiKey: "AIzaSyAzcBk5vzNjC0yqQR3x52vpHRdlhFdjSHQ",
+  apiKey: "AIzaSyCrVCHku9jcEI8u6YKIShvINvFeFacEqp8",
   version: "weekly",
   libraries: ["places"],
 });
@@ -45,7 +47,7 @@ let myCustomMap;
 
 export default {
   name: "GoogleMap",
-  components: { ButtonZoom },
+  components: { ButtonZoom, ButtonSpeed },
   data() {
     return {
       latitude: "Latitude",
@@ -55,7 +57,7 @@ export default {
 
       lat: 48.8534,
       lng: 2.3488,
-      speed: 25, //in ms
+      speed: 250, //in ms
     };
   },
   methods: {
@@ -67,6 +69,8 @@ export default {
         },
         zoom: 14,
         disableDefaultUI: true,
+        mapTypeId: "satellite",
+
         // mapTypeId: google.maps.MapTypeId.SATELLITE
       };
 
@@ -84,29 +88,38 @@ export default {
     },
 
     changeFoo(id, val) {
+      let obj = { id, val };
+      clearInterval(this.t);
+
       if (val != 1) {
         this.t = setInterval(() => {
-          this.updateMap(id, val);
+          this.updateMap(obj);
         }, this.speed);
       } else if (val == 1) {
         clearInterval(this.t);
+        console.log("clearInterval");
       }
     },
 
-    updateMap(id, val) {
-      switch (id) {
+    changeSpeed(speed) {
+      console.log(speed);
+      this.speed = speed;
+    },
+
+    updateMap(obj) {
+      switch (obj.id) {
         case this.idlatitude:
-          if (val > 1) {
+          if (obj.val > 1) {
             this.lat += 0.0001;
-          } else if (val < 1) {
+          } else if (obj.val < 1) {
             this.lat -= 0.0001;
           }
           break;
         case this.idlongitude:
-          if (val > 1) {
+          if (obj.val > 1) {
             this.lng += 0.0001;
-          } else if (val < 1) {
-            this.lat -= 0.0001;
+          } else if (obj.val < 1) {
+            this.lng -= 0.0001;
           }
           break;
       }
@@ -123,7 +136,7 @@ export default {
 
 <style>
 #map {
-  min-height: 100vh;
+  min-height: 80vh;
 }
 div.zIndex {
   z-index: 2;
