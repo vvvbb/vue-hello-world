@@ -31,25 +31,18 @@ export default {
     };
   },
 };
-
-// const articleTwo = $("#article2");
-// const buttonTwo = $("#article2 button");
-
-// $(buttonTwo).on("click", function (event) {
-//   $("#article2 h1").slideToggle();
-//   $("#article2 h2").slideToggle();
-//   $("#article2 p").slideToggle(1000, blinkSlow);
-// });
 </script>
 
 <style lang="scss">
 .active {
+  filter: drop-shadow(0px 16px 20px gray) invert(15%);
+
   p {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 1rem;
   }
   button {
-      position: relative;
+    position: relative;
     &::after {
       content: "";
       position: absolute;
