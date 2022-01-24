@@ -41,6 +41,8 @@ let loader = new Loader({
   libraries: ["places"],
 });
 
+let myCustomMap;
+
 export default {
   name: "GoogleMap",
   components: { ButtonZoom },
@@ -53,8 +55,7 @@ export default {
 
       lat: 48.8534,
       lng: 2.3488,
-      speed: 250,
-      speedaaa: 0.00005,
+      speed: 25, //in ms
     };
   },
   methods: {
@@ -72,7 +73,10 @@ export default {
       loader
         .load()
         .then((google) => {
-          new google.maps.Map(document.getElementById("map"), mapOptions);
+          myCustomMap = new google.maps.Map(
+            document.getElementById("map"),
+            mapOptions
+          );
         })
         .catch((e) => {
           console.log("e : ", e);
@@ -80,46 +84,34 @@ export default {
     },
 
     changeFoo(id, val) {
-      //   console.log("change position", id, val);
-
       if (val != 1) {
         this.t = setInterval(() => {
-          this.updateMap();
+          this.updateMap(id, val);
         }, this.speed);
       } else if (val == 1) {
         clearInterval(this.t);
       }
-
-      let mapOptions = {
-        center: {
-          lat: 48.8534,
-          lng: 2.3488,
-        },
-        zoom: 14,
-        disableDefaultUI: true,
-        // mapTypeId: google.maps.MapTypeId.SATELLITE
-      };
-
-      loader
-        .load()
-        .then((google) => {
-          new google.maps.Map(document.getElementById("map"), mapOptions);
-        })
-        .catch((e) => {
-          console.log("e : ", e);
-        });
     },
-    updateMap() {
-      console.log("SET INT");
 
-      // if (this.val > 1) {
-      //   IncPosition = setInterval(function () {
-      //     coordY += speed;
-      //     myCustomMap.setCenter({ lat: coordX, lng: coordY });
-      //   }, 50);
-      // } else if (!e.target.checked) {
-      //   clearInterval(IncPosition);
-      // }
+    updateMap(id, val) {
+      switch (id) {
+        case this.idlatitude:
+          if (val > 1) {
+            this.lat += 0.0001;
+          } else if (val < 1) {
+            this.lat -= 0.0001;
+          }
+          break;
+        case this.idlongitude:
+          if (val > 1) {
+            this.lng += 0.0001;
+          } else if (val < 1) {
+            this.lat -= 0.0001;
+          }
+          break;
+      }
+
+      myCustomMap.setCenter({ lat: this.lat, lng: this.lng });
     },
   },
 
