@@ -29,6 +29,13 @@ export default {
       $("#container-two button").fadeOut(800);
       $("#container-two button").fadeIn(800);
     });
+
+    setInterval(function () {
+      let time = new Date();
+      $("#btn-three").html(
+        `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
+      );
+    }, 1000);
   },
 };
 </script>
